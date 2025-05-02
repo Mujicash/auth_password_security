@@ -13,7 +13,11 @@
     ],
     "license": "LGPL-3",
     "data": [
+        "data/email_template_password_expire_notification.xml",
+        "data/ir_cron.xml",
         "views/res_config_settings_views.xml",
+        "security/ir.model.access.csv",
+        "security/res_users_pass_history_security.xml",
     ],
     "demo": [
     ],
