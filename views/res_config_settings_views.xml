@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_res_config_settings_password_security" model="ir.ui.view">
+        <field name="name">res.config.settings.form.auth_password_security</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="auth_password_policy.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Hide original minlength label -->
+            <xpath expr="//label[@for='minlength']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Add ID to policy section for relocation -->
+            <xpath expr="//field[@name='minlength']/ancestor::div[hasclass('o_setting_box')]" position="attributes">
+                <attribute name="id">password_policy</attribute>
+            </xpath>
+
+            <!-- Move block below password reset setting -->
+            <xpath expr="//div[@id='enable_password_reset']" position="after">
+                <xpath expr="//div[@id='password_policy']" position="move"/>
+            </xpath>
+
+            <xpath expr="//div[@id='password_policy']//div[hasclass('o_setting_right_pane')]/*" position="after">
+
+                <label string="Password Policy" for="password_expiration"/>
+                <div class="content-group">
+
+                    <div class="mt16 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="test_password_expiration"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="test_password_expiration"/>
+                            <div class="text-muted">
+                                If enabled, expiration time will be counted in minutes instead of days (for testing).
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt16">
+                        <span>
+                            Password expires in
+                            <field name="password_expiration" class="oe_inline"/>
+                            days.
+                        </span>
+                    </div>
+
+                    <div class="mt16">
+                        <span>
+                            Users can change their password again after
+                            <field name="password_minimum" class="oe_inline"/>
+                            hours.
+                        </span>
+                    </div>
+
+                    <div class="mt16">
+                        <span>
+                            Disallow reuse of
+                            <field name="password_history" class="oe_inline"/>
+                            previous passwords.
+                        </span>
+                        <div class="text-muted">
+                            Use a negative number for infinite, or 0 to disable.
+                        </div>
+                    </div>
+
+                    <div class="mt16">
+                        <span>
+                            Minimum number of lowercase characters:
+                            <field name="password_lower" class="oe_inline"/>
+                        </span>
+                    </div>
+
+                    <div class="mt16">
+                        <span>
+                            Minimum number of uppercase characters:
+                            <field name="password_upper" class="oe_inline"/>
+                        </span>
+                    </div>
+
+                    <div class="mt16">
+                        <span>
+                            Minimum number of numeric digits:
+                            <field name="password_numeric" class="oe_inline"/>
+                        </span>
+                    </div>
+
+                    <div class="mt16">
+                        <span>
+                            Minimum number of special characters:
+                            <field name="password_special" class="oe_inline"/>
+                        </span>
+                    </div>
+
+                    <div class="mt16">
+                        <span>
+                            Time of day at which the user will be logged out
+                            <field name="session_duration" class="oe_inline"/>
+                        </span>
+                    </div>
+
+                    <div class="mt16">
+                        <span>
+                            Number of days before password expiration to alert users:
+                            <field name="day_alert_expire" class="oe_inline"/>
+                        </span>
+                    </div>
+
+                    <div class="mt16">
+                        <span id="minlength">
+                            Minimum password length:
+                        </span>
+                    </div>
+
+                </div>
+            </xpath>
+
+            <!-- Add oe_inline class to minlength field -->
+            <xpath expr="//field[@name='minlength']" position="attributes">
+                <attribute name="class">oe_inline</attribute>
+            </xpath>
+
+            <!-- Move minlength field inside the span -->
+            <xpath expr="//span[@id='minlength']" position="inside">
+                <xpath expr="//field[@name='minlength']" position="move"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
